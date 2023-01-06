@@ -78,10 +78,10 @@ function SpawnBoss () {
 function EnemyDeath (EnemyShip: Sprite) {
     EnemyShip.destroy(effects.fire, 500)
     if (Math.percentChance(20)) {
-        PowerUp = sprites.create(assets.image`Laser Powerup`, SpriteKind.PowerUp)
-        PowerUp.x = EnemyShip.x
-        PowerUp.y = EnemyShip.y
-        PowerUp.vy = EnemyShip.vy
+        PowerUp2 = sprites.create(assets.image`Laser Powerup`, SpriteKind.PowerUp)
+        PowerUp2.x = EnemyShip.x
+        PowerUp2.y = EnemyShip.y
+        PowerUp2.vy = EnemyShip.vy
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.PowerUp, function (sprite, otherSprite) {
@@ -120,15 +120,15 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.BossMissleWeakPoint, functio
     statusbars.getStatusBarAttachedTo(StatusBarKind.BWPMissle, otherSprite).value += -10
     sprite.destroy(effects.warmRadial, 100)
 })
+statusbars.onZero(StatusBarKind.BWPMissle, function (status) {
+    BMissle_Active = 0
+    status.spriteAttachedTo().destroy(effects.fire, 2000)
+})
 function Boss_Weakpoint_Alignment () {
     BossMissle_Weakpoint_1.setPosition(Boss_Body.x - 26, Boss_Body.y + 16)
     BossMissle_Weakpoint_2.setPosition(Boss_Body.x + 26, Boss_Body.y + 16)
     BossBridge.setPosition(Boss_Body.x, Boss_Body.y + 10)
 }
-statusbars.onZero(StatusBarKind.BWPMissle, function (status) {
-    BMissle_Active = 0
-    status.spriteAttachedTo().destroy(effects.fire, 2000)
-})
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprite.destroy(effects.warmRadial, 100)
     statusbars.getStatusBarAttachedTo(StatusBarKind.EnemyHealth, otherSprite).value += -50
@@ -141,10 +141,10 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 })
 let ESStatusbar: StatusBarSprite = null
 let EnemyShip: Sprite = null
-let SpaceRock: Sprite = null
+let SpaceRock2: Sprite = null
 let BM2: Sprite = null
 let BM1: Sprite = null
-let PowerUp: Sprite = null
+let PowerUp2: Sprite = null
 let BMissle_Status2: StatusBarSprite = null
 let BMissle_Status: StatusBarSprite = null
 let BossBar: StatusBarSprite = null
@@ -217,9 +217,9 @@ game.onUpdateInterval(2000, function () {
     }
 })
 game.onUpdateInterval(1000, function () {
-    SpaceRock = sprites.createProjectileFromSide(Asteroids[randint(0, Asteroids.length - 1)], 0, 50)
-    SpaceRock.x = randint(0, scene.screenWidth())
-    SpaceRock.setKind(SpriteKind.SpaceRock)
+    SpaceRock2 = sprites.createProjectileFromSide(Asteroids[randint(0, Asteroids.length - 1)], 0, 50)
+    SpaceRock2.x = randint(0, scene.screenWidth())
+    SpaceRock2.setKind(SpriteKind.SpaceRock)
 })
 forever(function () {
     if (BossActive < 1) {
